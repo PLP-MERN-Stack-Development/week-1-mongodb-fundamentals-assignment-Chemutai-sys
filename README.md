@@ -44,4 +44,24 @@ Your work will be automatically submitted when you push to your GitHub Classroom
 
 - [MongoDB Documentation](https://docs.mongodb.com/)
 - [MongoDB University](https://university.mongodb.com/)
-- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/) 
+- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/)
+  Answer
+  // queries.js
+
+// 1. Find all books
+db.books.find()
+
+// 2. Find books published after 2010
+db.books.find({ published_year: { $gt: 2010 } })
+
+// 3. Find books with only the title and author, sorted by year
+db.books.find({}, { title: 1, author: 1, _id: 0 }).sort({ published_year: -1 })
+
+// 4. Count number of books per author (aggregation)
+db.books.aggregate([
+  { $group: { _id: "$author", count: { $sum: 1 } } },
+  { $sort: { count: -1 } }
+])
+
+// 5. Create index on title for faster search
+db.books.createIndex({ title: 1 })
